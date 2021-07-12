@@ -75,9 +75,9 @@ Bool_t RHAna::Process(Long64_t entry)
 
   
   GoodEvt = GoodEvt2018 && GoodEvt2017 && GoodEvt2016;
-  //TTree *t = new TTree("EventTree","Modified_Tree");
+ 
   // If this event passes above filters, then we process it futher.
-  if(GoodEvt){//&&nEvtRan<10001){
+  if(GoodEvt){
   
 
     nEvtRan++;
@@ -101,13 +101,13 @@ Bool_t RHAna::Process(Long64_t entry)
 	nMu_++;
 	muPt_.push_back(Muon_pt[i]);
 	muEta_.push_back(Muon_eta[i]);
-	    
+
 	//Filling the tree
 	myTree->Fill();
-    }
-	  
-  }
+      }
 
+  }
+ 
   
   return kTRUE;
 }
