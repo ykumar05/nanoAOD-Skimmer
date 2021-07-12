@@ -64,7 +64,7 @@ Bool_t RHAna::Process(Long64_t entry)
   //Output processing information to screen based on verbosity level.
   if(_verbosity==0 && nEvtTotal%1000==0)cout<<"Processed "<<nEvtTotal<<" events..."<<endl;      
   else if(_verbosity>0 && nEvtTotal%10000==0)cout<<"Processed "<<nEvtTotal<<" events..."<<endl;
-  // if(nEvtTotal<10001){
+ 
   nEvtTotal++;
 
 
@@ -100,17 +100,14 @@ Bool_t RHAna::Process(Long64_t entry)
       {
 	nMu_++;
 	muPt_.push_back(Muon_pt[i]);
-	//cout<<"The Muon Pt is:"<<Muon_pt[i]<<endl;
 	muEta_.push_back(Muon_eta[i]);
-	//cout<<"The Muon Eta is: "<<Muon_eta[i]<<endl;
+	    
 	//Filling the tree
 	myTree->Fill();
-      }
-    //cout<<"Total Muons in an Event are: "<<nMu_<<endl;
-    
-
+    }
+	  
   }
-  //}
+
   
   return kTRUE;
 }
