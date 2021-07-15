@@ -13,12 +13,17 @@ using namespace std;
 void RHAna::Begin(TTree * /*tree*/)
 {
    TString option = GetOption();
-   myTree = new TTree("EventTree","Modified_Tree");
-   //Connecting the branches of the input root file to the newly defined variables.
-   myTree ->Branch("nMuon",      &nMu_);
-   myTree ->Branch("Muon_pt",   &muPt_);
-   myTree ->Branch("Muon_eta", &muEta_);
+  
 }
+void RHAna:: BookBranches()
+{
+  myTree = new TTree("EventTree","Modified_Tree");
+  //Connecting the branches of the input root file to the newly defined variables.
+  myTree ->Branch("nMuon",      &nMu_);
+  myTree ->Branch("Muon_pt",   &muPt_);
+  myTree ->Branch("Muon_eta", &muEta_);
+}
+
 void RHAna::SlaveBegin(TTree * /*tree*/)   
 {
    TString option = GetOption();
@@ -27,6 +32,7 @@ void RHAna::SlaveBegin(TTree * /*tree*/)
    //Create the Root file
    _HstFile = new TFile(_HstFileName,"recreate");
    cout<<"The file that is being genrated is: "<<_HstFileName<<endl;
+   BookBranches();
 }
 
 void RHAna::SlaveTerminate()
@@ -75,7 +81,6 @@ Bool_t RHAna::Process(Long64_t entry)
 
   
   GoodEvt = GoodEvt2018 && GoodEvt2017 && GoodEvt2016;
- 
   // If this event passes above filters, then we process it futher.
   if(GoodEvt){
   
@@ -105,9 +110,7 @@ Bool_t RHAna::Process(Long64_t entry)
 	//Filling the tree
 	myTree->Fill();
       }
-
   }
- 
   
   return kTRUE;
 }
